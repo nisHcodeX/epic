@@ -1,13 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Route, Routes, Router, BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import reportWebVitals from './reportWebVitals';
+import store, { history } from './redux/store';
+
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Dashboard from './dashboard/dashboard.component';
+import Login from './auth/auth.component';
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store()}>
+    <ConnectedRouter history={history}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>,
+    </ConnectedRouter>
+  </Provider >,
   document.getElementById('root')
 );
 
